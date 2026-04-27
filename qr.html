@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kıroğlu Çiftliği — QR Kod</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+<style>
+  :root {
+    --green-deep:  #2D4A1E;
+    --green-mid:   #3D6129;
+    --cream:       #F5ECD7;
+    --cream-soft:  #FBF6ED;
+    --gold:        #C9963A;
+    --text-dark:   #1C2A12;
+    --text-mid:    #4A5C38;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--cream-soft);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px 28px;
+    box-shadow: 0 8px 40px rgba(45,74,30,0.18);
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    border: 2px solid var(--cream);
+  }
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    color: var(--green-deep);
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    color: var(--text-mid);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .qr-frame {
+    background: var(--cream-soft);
+    border: 2px dashed var(--gold);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #qrcode canvas, #qrcode img { display: block; max-width: 100%; height: auto; }
+  .url-box {
+    background: var(--cream-soft);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--green-mid);
+    word-break: break-all;
+    font-family: monospace;
+    border: 1px solid var(--cream);
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--cream);
+    border-radius: 12px;
+    font-size: 14px;
+    font-family: inherit;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  input[type="text"]:focus { border-color: var(--gold); }
+  .btn-row { display: flex; gap: 8px; }
+  button {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+  }
+  button:active { transform: scale(0.97); }
+  .btn-primary {
+    background: var(--green-deep);
+    color: var(--cream);
+  }
+  .btn-secondary {
+    background: var(--gold);
+    color: #fff;
+  }
+  .label {
+    display: block;
+    text-align: left;
+    font-size: 12px;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Kıroğlu Çiftliği</h1>
+    <p class="subtitle">Kurban 2026 — Site QR Kodu</p>
+
+    <div class="qr-frame">
+      <div id="qrcode"></div>
+    </div>
+
+    <div class="url-box" id="currentUrl"></div>
+
+    <button class="btn-secondary" id="downloadBtn" style="width:100%;">PNG İndir</button>
+  </div>
+
+<script>
+  // ⚠️ KALICI QR ADRESİ — Bir kez seç, asla değiştirme. Basılı QR bu adrese gider.
+  const QR_URL = 'https://kirogluciftligi.com';
+
+  const qrEl = document.getElementById('qrcode');
+  const currentUrl = document.getElementById('currentUrl');
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  function render(url) {
+    qrEl.innerHTML = '';
+    const canvas = document.createElement('canvas');
+    qrEl.appendChild(canvas);
+
+    if (typeof QRCode !== 'undefined' && QRCode.toCanvas) {
+      QRCode.toCanvas(canvas, url, {
+        width: 280,
+        margin: 1,
+        color: { dark: '#2D4A1E', light: '#FBF6ED' },
+        errorCorrectionLevel: 'H'
+      }, function(err) {
+        if (err) fallback(url);
+      });
+    } else {
+      fallback(url);
+    }
+    currentUrl.textContent = url;
+  }
+
+  function fallback(url) {
+    qrEl.innerHTML = '';
+    const img = document.createElement('img');
+    img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=280x280&ecc=H&color=2D4A1E&bgcolor=FBF6ED&data=' + encodeURIComponent(url);
+    img.alt = 'QR Code';
+    img.style.width = '280px';
+    img.style.height = '280px';
+    img.crossOrigin = 'anonymous';
+    qrEl.appendChild(img);
+  }
+
+  downloadBtn.addEventListener('click', () => {
+    const canvas = qrEl.querySelector('canvas');
+    const img = qrEl.querySelector('img');
+    const link = document.createElement('a');
+    link.download = 'kiroglu-ciftligi-qr.png';
+    if (canvas) {
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } else if (img) {
+      link.href = img.src;
+      link.target = '_blank';
+      link.click();
+    }
+  });
+
+  render(QR_URL);
+</script>
+</body>
+</html>
