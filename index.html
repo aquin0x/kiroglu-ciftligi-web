@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="no-js">
+<html lang="tr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
@@ -55,8 +55,6 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* If JS fails to load entirely, still show content */
-  .no-js .reveal { opacity: 1; transform: none; }
   .reveal-delay-1 { transition-delay: 0.1s; }
   .reveal-delay-2 { transition-delay: 0.2s; }
   .reveal-delay-3 { transition-delay: 0.3s; }
@@ -107,7 +105,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 0 56px;
+    padding: 0 0 90px;
   }
 
   /* Cinematic gradient overlay over image */
@@ -256,7 +254,7 @@
   /* Scroll indicator */
   .hero-scroll {
     position: absolute;
-    bottom: 14px;
+    bottom: 22px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
@@ -1049,8 +1047,8 @@
     </div>
     <div class="hero-tag">Kıroğlu Çiftliği</div>
     <h1 class="hero-title">Kurban<br><span class="gold">2026</span></h1>
-    <p class="hero-farm">Otantik Lezzet, Güvenilir Kaynak</p>
-    <p class="hero-slogan">Tohumdan sofraya, doğal beslenmiş sağlıklı hayvanlar. 2011'den bu yana ailelere hizmet ediyoruz.</p>
+    <p class="hero-farm">Karadeniz’in Doğal Lezzeti</p>
+    <p class="hero-slogan">Yayladan sofranıza, doğal beslenmiş sağlıklı hayvanlar. 2011’den bu yana ailelere güvenle hizmet veriyoruz.</p>
     <div class="hero-actions">
       <a href="#hayvanlar" class="btn-primary">
         <svg width="16" height="16" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2.5" stroke-linecap="round" d="M9 5l7 7-7 7"/></svg>
@@ -1064,8 +1062,8 @@
         <span class="hero-stat-label">Yıllık Deneyim</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num" data-count="150" data-suffix="+">0</span>
-        <span class="hero-stat-label">Mutlu Aile</span>
+        <span class="hero-stat-num" data-count="700" data-suffix="+">0</span>
+        <span class="hero-stat-label">Toplam Hisse</span>
       </div>
       <div class="hero-stat">
         <span class="hero-stat-num" data-count="100" data-prefix="%">0</span>
@@ -1092,7 +1090,152 @@
   <!-- BÜYÜKBAŞ -->
   <div class="animal-section active" data-cat="buyukbas" style="display:block">
     <div class="cards-grid" id="animal-cards-grid">
-      <!-- Cards rendered by script below -->
+
+      <div class="animal-card reveal">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-1.webp" alt="Hayvan No. 1" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+          <span class="badge-hot">YENİ</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 1</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%201%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-1">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-2.webp" alt="Hayvan No. 2" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 2</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%202%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-2">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-3.webp" alt="Hayvan No. 3" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 3</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%203%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-3">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-4.webp" alt="Hayvan No. 4" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 4</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%204%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-5.webp" alt="Hayvan No. 5" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 5</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%205%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-1">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-6.webp" alt="Hayvan No. 6" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 6</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%206%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-2">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-7.webp" alt="Hayvan No. 7" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 7</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%207%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal reveal-delay-3">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-8.webp" alt="Hayvan No. 8" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 8</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%208%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <div class="animal-card reveal">
+        <div class="card-image">
+          <img class="card-photo" src="images/webp/animals/animal-9.webp" alt="Hayvan No. 9" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+        </div>
+        <div class="card-body">
+          <p class="card-type">Büyükbaş Kurbanlık</p>
+          <h3 class="card-name">Hayvan No. 9</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba%2C%20Hayvan%20No.%209%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum." class="card-whatsapp">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -1313,6 +1456,10 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="rgba(245,236,215,0.7)" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="rgba(245,236,215,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg>
         Hormonsuz Beslenme
       </div>
+      <div class="cert-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="4" y="6" width="16" height="12" rx="2" stroke="rgba(245,236,215,0.7)" stroke-width="1.5"/><path d="M4 10h16M9 14h2" stroke="rgba(245,236,215,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg>
+        TÜRKVET Kayıtlı
+      </div>
     </div>
     <div class="about-milestones">
       <div class="milestone">
@@ -1428,7 +1575,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-logo">Kıroğlu <span>Çiftliği</span></div>
-  <p class="footer-slogan">2011'den beri doğal, güvenilir, lezzetli.</p>
+  <p class="footer-slogan">2011'den beri doğal, güvenilir, helal.</p>
   <div class="social-row">
     <a href="https://instagram.com/ysn.sandikci" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(245,236,215,0.6)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(245,236,215,0.6)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(245,236,215,0.6)"/></svg>
@@ -1441,8 +1588,7 @@
     </a>
   </div>
   <div class="footer-divider"></div>
-  <p class="footer-copy">© 2026 Kıroğlu Çiftliği. Tüm hakları saklıdır.</p>
-  <p style="margin-top:14px;font-size:11px;color:rgba(245,236,215,0.55);letter-spacing:0.5px;">Tasarım &amp; Geliştirme — <a href="https://frax.tr" target="_blank" rel="noopener" style="color:var(--gold-light);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(226,185,106,0.4);padding-bottom:1px;">frax labs</a></p>
+  <p class="footer-copy">©2026 Tüm Hakları Saklıdır — <a href="https://frax.tr" target="_blank" rel="noopener" style="color:var(--gold-light);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(226,185,106,0.4);padding-bottom:1px;">frax labs</a> Tarafından Hazırlanmıştır.</p>
 </footer>
 
 <!-- ── STICKY WHATSAPP ── -->
@@ -1451,62 +1597,17 @@
 </a>
 
 <script>
-  document.documentElement.classList.remove('no-js');
-
   // ── SCROLL REVEAL ──
-  function revealAll() {
-    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
-  }
-  if (!('IntersectionObserver' in window)) {
-    revealAll();
-  } else {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0, rootMargin: '0px 0px 150px 0px' });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    // Safety net — guarantees no content stays hidden if observer misfires
-    setTimeout(revealAll, 2500);
-  }
-  // ── ANIMAL CARDS (büyükbaş) ──
-  const ANIMALS = [
-    { id: 1, name: 'Hayvan No. 1', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-1.webp', hot: 'YENİ' },
-    { id: 2, name: 'Hayvan No. 2', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-2.webp', hot: '' },
-    { id: 3, name: 'Hayvan No. 3', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-3.webp', hot: '' },
-    { id: 4, name: 'Hayvan No. 4', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-4.webp', hot: '' },
-    { id: 5, name: 'Hayvan No. 5', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-5.webp', hot: '' },
-    { id: 6, name: 'Hayvan No. 6', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-6.webp', hot: '' },
-    { id: 7, name: 'Hayvan No. 7', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-7.webp', hot: '' },
-    { id: 8, name: 'Hayvan No. 8', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-8.webp', hot: '' },
-    { id: 9, name: 'Hayvan No. 9', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-9.webp', hot: '' },
-  ];
-  const WA_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>';
-  const grid = document.getElementById('animal-cards-grid');
-  if (grid) {
-    grid.innerHTML = ANIMALS.map((a, i) => `
-      <div class="animal-card reveal${i % 4 ? ' reveal-delay-' + (i % 4) : ''}">
-        <div class="card-image">
-          <img class="card-photo" src="${a.img}" alt="${a.name}" loading="lazy">
-          <span class="card-badge badge-buyukbas">Büyükbaş</span>
-          ${a.hot ? `<span class="badge-hot">${a.hot}</span>` : ''}
-        </div>
-        <div class="card-body">
-          <p class="card-type">${a.tag}</p>
-          <h3 class="card-name">${a.name}</h3>
-          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
-          <a href="https://wa.me/905370587890?text=Merhaba, ${encodeURIComponent(a.name)} hakkında bilgi almak istiyorum." class="card-whatsapp">
-            ${WA_SVG} WhatsApp
-          </a>
-        </div>
-      </div>
-    `).join('');
-    // Re-observe newly created reveal elements
-    grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => observer.observe(el));
 
   // ── COUNT-UP STATS ──
   function animateCount(el) {
