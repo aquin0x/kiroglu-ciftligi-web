@@ -47,9 +47,12 @@
 
   /* ─── SCROLL REVEAL ─── */
   .reveal {
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  /* Only hide reveal elements once JS confirms the IntersectionObserver is set up */
+  .js-reveal-ready .reveal:not(.visible) {
     opacity: 0;
     transform: translateY(28px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
   }
   .reveal.visible {
     opacity: 1;
@@ -101,22 +104,23 @@
     position: relative;
     background: var(--green-deep);
     overflow: hidden;
-    min-height: 520px;
+    min-height: 620px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 0 40px;
+    padding: 0 0 56px;
   }
 
-  /* Texture overlay */
+  /* Cinematic gradient overlay over image */
   .hero::before {
     content: '';
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 140% 80% at 50% 0%, rgba(201,150,58,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 100% 60% at 80% 100%, rgba(45,74,30,0.6) 0%, transparent 70%);
-    z-index: 1;
+      radial-gradient(ellipse 140% 80% at 50% 0%, rgba(201,150,58,0.18) 0%, transparent 55%),
+      linear-gradient(180deg, rgba(28,42,18,0.35) 0%, rgba(28,42,18,0.55) 45%, rgba(28,42,18,0.92) 100%);
+    z-index: 2;
+    pointer-events: none;
   }
 
   /* Grain texture */
@@ -124,66 +128,159 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
-    z-index: 2;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+    z-index: 3;
     pointer-events: none;
+    mix-blend-mode: overlay;
   }
 
   .hero-image-wrap {
     position: absolute;
     inset: 0;
     z-index: 0;
+    overflow: hidden;
   }
-  .hero-image-placeholder {
+  .hero-bg-img {
     width: 100%;
     height: 100%;
-    background:
-      linear-gradient(180deg, rgba(45,74,30,0.3) 0%, rgba(45,74,30,0.85) 100%),
-      repeating-linear-gradient(
-        -45deg,
-        transparent,
-        transparent 20px,
-        rgba(255,255,255,0.015) 20px,
-        rgba(255,255,255,0.015) 40px
-      );
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    object-fit: cover;
+    object-position: center 40%;
+    animation: kenBurns 18s ease-in-out infinite alternate;
+    filter: brightness(0.85) saturate(1.05);
   }
-  .hero-image-placeholder .ph-label {
-    color: rgba(245,236,215,0.25);
-    font-family: monospace;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    white-space: nowrap;
-    pointer-events: none;
+  @keyframes kenBurns {
+    0%   { transform: scale(1.02) translate(0, 0); }
+    100% { transform: scale(1.15) translate(-1%, -2%); }
   }
 
-  /* Floating badge */
+  /* Floating particles */
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--gold-light);
+    border-radius: 50%;
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(226,185,106,0.8);
+    animation: floatUp 8s ease-in infinite;
+  }
+  .particle:nth-child(1) { left: 10%; animation-delay: 0s;   animation-duration: 9s;  }
+  .particle:nth-child(2) { left: 28%; animation-delay: 2s;   animation-duration: 11s; }
+  .particle:nth-child(3) { left: 48%; animation-delay: 4s;   animation-duration: 8s;  }
+  .particle:nth-child(4) { left: 68%; animation-delay: 1.5s; animation-duration: 10s; }
+  .particle:nth-child(5) { left: 85%; animation-delay: 3.5s; animation-duration: 9.5s;}
+  .particle:nth-child(6) { left: 38%; animation-delay: 6s;   animation-duration: 12s; width:3px; height:3px;}
+  .particle:nth-child(7) { left: 78%; animation-delay: 5s;   animation-duration: 10.5s; width:3px; height:3px;}
+  @keyframes floatUp {
+    0%   { bottom: -10px; opacity: 0; transform: translateX(0); }
+    10%  { opacity: 0.7; }
+    50%  { transform: translateX(20px); opacity: 0.9; }
+    90%  { opacity: 0.4; }
+    100% { bottom: 100%; opacity: 0; transform: translateX(-10px); }
+  }
+
+  /* Floating badge with halo */
   .hero-badge {
     position: absolute;
-    top: 24px;
+    top: 76px;
     right: 20px;
     z-index: 10;
-    background: var(--gold);
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
     color: var(--white);
     font-family: var(--serif);
     font-size: 13px;
     font-weight: 700;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 50px;
     letter-spacing: 0.5px;
-    box-shadow: 0 4px 16px rgba(201,150,58,0.5);
-    animation: floatBadge 3s ease-in-out infinite;
+    box-shadow: 0 4px 20px rgba(201,150,58,0.55);
+    animation: floatBadge 3s ease-in-out infinite, badgeIn 0.8s 0.2s backwards cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .hero-badge::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50px;
+    background: radial-gradient(circle, rgba(226,185,106,0.5) 0%, transparent 70%);
+    z-index: -1;
+    animation: haloPulse 2.5s ease-in-out infinite;
   }
   @keyframes floatBadge {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
+  }
+  @keyframes haloPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 0.9; transform: scale(1.15); }
+  }
+  @keyframes badgeIn {
+    from { opacity: 0; transform: translateY(-20px) scale(0.7); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  /* Hero ornament (decorative gold flourish) */
+  .hero-ornament {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: heroFadeUp 0.8s 0.3s forwards ease-out;
+  }
+  .hero-ornament-line {
+    flex: 0 0 36px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light));
+  }
+  .hero-ornament svg { flex-shrink: 0; }
+
+  /* Staggered reveal */
+  .hero-content > * { opacity: 0; }
+  .hero-tag       { animation: heroFadeUp 0.7s 0.4s forwards ease-out; }
+  .hero-title     { animation: heroFadeUp 0.9s 0.55s forwards cubic-bezier(0.22, 1, 0.36, 1); }
+  .hero-farm      { animation: heroFadeUp 0.7s 0.85s forwards ease-out; }
+  .hero-slogan    { animation: heroFadeUp 0.7s 1.0s forwards ease-out; }
+  .hero-actions   { animation: heroFadeUp 0.7s 1.15s forwards ease-out; }
+  .hero-stats     { animation: heroFadeUp 0.8s 1.35s forwards ease-out; }
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll indicator */
+  .hero-scroll {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: rgba(245,236,215,0.55);
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-transform: uppercase;
+    animation: heroFadeUp 0.7s 1.6s backwards ease-out;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 26px;
+    background: linear-gradient(180deg, rgba(226,185,106,0.7), transparent);
+    animation: scrollHint 2s ease-in-out infinite;
+  }
+  @keyframes scrollHint {
+    0%, 100% { transform: scaleY(1); transform-origin: top; opacity: 0.4; }
+    50%      { transform: scaleY(1.4); opacity: 1; }
   }
 
   .hero-content {
@@ -206,14 +303,27 @@
   }
   .hero-title {
     font-family: var(--serif);
-    font-size: 52px;
+    font-size: 64px;
     font-weight: 900;
     color: var(--cream);
-    line-height: 1.0;
-    margin-bottom: 6px;
-    letter-spacing: -1px;
+    line-height: 0.95;
+    margin-bottom: 10px;
+    letter-spacing: -2px;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.4);
   }
-  .hero-title .gold { color: var(--gold-light); }
+  .hero-title .gold {
+    background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-light) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--gold-light);
+    animation: shimmer 4s linear infinite;
+    display: inline-block;
+  }
+  @keyframes shimmer {
+    to { background-position: 200% center; }
+  }
   .hero-farm {
     font-family: var(--serif);
     font-size: 22px;
@@ -269,31 +379,48 @@
     display: flex;
     gap: 0;
     margin-top: 32px;
-    background: rgba(245,236,215,0.06);
-    border: 1px solid rgba(245,236,215,0.1);
-    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(245,236,215,0.08), rgba(245,236,215,0.03));
+    border: 1px solid rgba(226,185,106,0.18);
+    border-radius: 16px;
     overflow: hidden;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
   .hero-stat {
     flex: 1;
-    padding: 14px 10px;
+    padding: 16px 8px;
     text-align: center;
-    border-right: 1px solid rgba(245,236,215,0.1);
+    border-right: 1px solid rgba(245,236,215,0.12);
+    position: relative;
   }
   .hero-stat:last-child { border-right: none; }
+  .hero-stat::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(226,185,106,0.4), transparent);
+    transform: translate(-50%, 24px);
+  }
   .hero-stat-num {
     font-family: var(--serif);
-    font-size: 22px;
-    font-weight: 700;
+    font-size: 28px;
+    font-weight: 800;
     color: var(--gold-light);
     display: block;
+    letter-spacing: -0.5px;
+    text-shadow: 0 2px 12px rgba(201,150,58,0.3);
   }
   .hero-stat-label {
     font-size: 10px;
-    color: rgba(245,236,215,0.5);
-    letter-spacing: 0.5px;
-    margin-top: 2px;
+    color: rgba(245,236,215,0.7);
+    letter-spacing: 0.8px;
+    margin-top: 4px;
     display: block;
+    font-weight: 500;
+    text-transform: uppercase;
   }
 
   /* ══════════════════════════════════
@@ -388,6 +515,14 @@
     background: var(--cream-dark);
     overflow: hidden;
   }
+  .card-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .animal-card:hover .card-photo { transform: scale(1.04); }
   .card-image-placeholder {
     width: 100%;
     height: 100%;
@@ -891,12 +1026,28 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-image-wrap">
-    <div class="hero-image-placeholder">
-      <span class="ph-label">ÇİFTLİK FOTOĞRAFI</span>
-    </div>
+    <img src="images/webp/yasin.webp" alt="Kıroğlu Çiftliği" class="hero-bg-img" loading="eager" fetchpriority="high">
+  </div>
+  <div class="hero-particles" aria-hidden="true">
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
+    <span class="particle"></span>
   </div>
   <div class="hero-badge">🌙 Kurban 2026</div>
   <div class="hero-content">
+    <div class="hero-ornament" aria-hidden="true">
+      <span class="hero-ornament-line"></span>
+      <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
+        <path d="M11 2 L13 6 L11 10 L9 6 Z" fill="#E2B96A"/>
+        <circle cx="3" cy="6" r="1.5" fill="#E2B96A"/>
+        <circle cx="19" cy="6" r="1.5" fill="#E2B96A"/>
+      </svg>
+      <span class="hero-ornament-line" style="background: linear-gradient(90deg, var(--gold-light), transparent);"></span>
+    </div>
     <div class="hero-tag">Kıroğlu Çiftliği</div>
     <h1 class="hero-title">Kurban<br><span class="gold">2026</span></h1>
     <p class="hero-farm">Otantik Lezzet, Güvenilir Kaynak</p>
@@ -910,19 +1061,23 @@
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
-        <span class="hero-stat-num">15</span>
+        <span class="hero-stat-num" data-count="15" data-suffix="">0</span>
         <span class="hero-stat-label">Yıllık Deneyim</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num">150+</span>
+        <span class="hero-stat-num" data-count="150" data-suffix="+">0</span>
         <span class="hero-stat-label">Mutlu Aile</span>
       </div>
       <div class="hero-stat">
-        <span class="hero-stat-num">%100</span>
+        <span class="hero-stat-num" data-count="100" data-prefix="%">0</span>
         <span class="hero-stat-label">Doğal Beslenme</span>
       </div>
     </div>
   </div>
+  <a href="#hayvanlar" class="hero-scroll" aria-label="Aşağı kaydır">
+    <span>KEŞFET</span>
+    <span class="hero-scroll-line"></span>
+  </a>
 </section>
 
 <!-- ── GALERİ ── -->
@@ -937,102 +1092,8 @@
 
   <!-- BÜYÜKBAŞ -->
   <div class="animal-section active" data-cat="buyukbas" style="display:block">
-    <div class="cards-grid">
-
-      <div class="animal-card reveal">
-        <div class="card-image">
-          <div class="card-image-placeholder">
-            <span class="animal-icon">🐂</span>
-            <span class="ph-text">BOĞA FOTOĞRAFI</span>
-          </div>
-          <span class="card-badge badge-buyukbas">Büyükbaş</span>
-          <span class="badge-hot">ÇOK ARANAN</span>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Saf Yerli</p>
-          <h3 class="card-name">Boğa</h3>
-          <div class="card-meta">
-            <svg class="card-meta-icon" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#4A5C38" stroke-width="2" stroke-linecap="round"/></svg>
-            <span class="card-weight">500–650 kg</span>
-          </div>
-          <p class="card-price">₺90.000 – ₺130.000 <span class="card-price-sub">/ baş</span></p>
-          <a href="https://wa.me/905370587890?text=Merhaba, Boğa hakkında bilgi almak istiyorum." class="card-whatsapp">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div class="animal-card reveal reveal-delay-1">
-        <div class="card-image">
-          <div class="card-image-placeholder">
-            <span class="animal-icon">🐄</span>
-            <span class="ph-text">DANA FOTOĞRAFI</span>
-          </div>
-          <span class="card-badge badge-buyukbas">Büyükbaş</span>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Genç Erkek</p>
-          <h3 class="card-name">Dana</h3>
-          <div class="card-meta">
-            <svg class="card-meta-icon" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#4A5C38" stroke-width="2" stroke-linecap="round"/></svg>
-            <span class="card-weight">300–450 kg</span>
-          </div>
-          <p class="card-price">₺50.000 – ₺75.000 <span class="card-price-sub">/ baş</span></p>
-          <a href="https://wa.me/905370587890?text=Merhaba, Dana hakkında bilgi almak istiyorum." class="card-whatsapp">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div class="animal-card reveal reveal-delay-2">
-        <div class="card-image">
-          <div class="card-image-placeholder">
-            <span class="animal-icon">🐄</span>
-            <span class="ph-text">DÜVE FOTOĞRAFI</span>
-          </div>
-          <span class="card-badge badge-buyukbas">Büyükbaş</span>
-        </div>
-        <div class="card-body">
-          <p class="card-type">Genç Dişi</p>
-          <h3 class="card-name">Düve</h3>
-          <div class="card-meta">
-            <svg class="card-meta-icon" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#4A5C38" stroke-width="2" stroke-linecap="round"/></svg>
-            <span class="card-weight">280–400 kg</span>
-          </div>
-          <p class="card-price">₺45.000 – ₺65.000 <span class="card-price-sub">/ baş</span></p>
-          <a href="https://wa.me/905370587890?text=Merhaba, Düve hakkında bilgi almak istiyorum." class="card-whatsapp">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
-      <div class="animal-card reveal reveal-delay-3">
-        <div class="card-image">
-          <div class="card-image-placeholder">
-            <span class="animal-icon">🐃</span>
-            <span class="ph-text">BÜYÜK BOĞA</span>
-          </div>
-          <span class="card-badge badge-buyukbas">Büyükbaş</span>
-          <span class="badge-hot">LİMİTLİ</span>
-        </div>
-        <div class="card-body">
-          <p class="card-type">İthal Irk</p>
-          <h3 class="card-name">Simental</h3>
-          <div class="card-meta">
-            <svg class="card-meta-icon" viewBox="0 0 24 24" fill="none"><path d="M3 6h18M3 12h18M3 18h18" stroke="#4A5C38" stroke-width="2" stroke-linecap="round"/></svg>
-            <span class="card-weight">650–850 kg</span>
-          </div>
-          <p class="card-price">₺130.000 – ₺180.000 <span class="card-price-sub">/ baş</span></p>
-          <a href="https://wa.me/905370587890?text=Merhaba, Simental Boğa hakkında bilgi almak istiyorum." class="card-whatsapp">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
+    <div class="cards-grid" id="animal-cards-grid">
+      <!-- Cards rendered by script below -->
     </div>
   </div>
 
@@ -1392,7 +1453,7 @@
 
 <script>
   // ── SCROLL REVEAL ──
-  const revealEls = document.querySelectorAll('.reveal');
+  document.body.classList.add('js-reveal-ready');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1400,8 +1461,70 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  revealEls.forEach(el => observer.observe(el));
+  }, { threshold: 0, rootMargin: '0px 0px 200px 0px' });
+  // Wait two frames so the hidden state paints before observer attaches
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }));
+  // Safety net: if any reveal element is still hidden after 2s, force-show it
+  setTimeout(() => {
+    document.querySelectorAll('.reveal:not(.visible)').forEach(el => el.classList.add('visible'));
+  }, 2000);
+  // ── ANIMAL CARDS (büyükbaş) ──
+  const ANIMALS = [
+    { id: 1, name: 'Hayvan No. 1', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-1.webp', hot: 'YENİ' },
+    { id: 2, name: 'Hayvan No. 2', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-2.webp', hot: '' },
+    { id: 3, name: 'Hayvan No. 3', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-3.webp', hot: '' },
+    { id: 4, name: 'Hayvan No. 4', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-4.webp', hot: '' },
+    { id: 5, name: 'Hayvan No. 5', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-5.webp', hot: '' },
+    { id: 6, name: 'Hayvan No. 6', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-6.webp', hot: '' },
+    { id: 7, name: 'Hayvan No. 7', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-7.webp', hot: '' },
+    { id: 8, name: 'Hayvan No. 8', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-8.webp', hot: '' },
+    { id: 9, name: 'Hayvan No. 9', tag: 'Büyükbaş Kurbanlık', img: 'images/webp/animals/animal-9.webp', hot: '' },
+  ];
+  const WA_SVG = '<svg width="13" height="13" viewBox="0 0 24 24" fill="#2E7D32"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>';
+  const grid = document.getElementById('animal-cards-grid');
+  if (grid) {
+    grid.innerHTML = ANIMALS.map((a, i) => `
+      <div class="animal-card reveal${i % 4 ? ' reveal-delay-' + (i % 4) : ''}">
+        <div class="card-image">
+          <img class="card-photo" src="${a.img}" alt="${a.name}" loading="lazy">
+          <span class="card-badge badge-buyukbas">Büyükbaş</span>
+          ${a.hot ? `<span class="badge-hot">${a.hot}</span>` : ''}
+        </div>
+        <div class="card-body">
+          <p class="card-type">${a.tag}</p>
+          <h3 class="card-name">${a.name}</h3>
+          <p class="card-price" style="font-size:14px;color:var(--gold-dark);">Fiyat için iletişime geçin</p>
+          <a href="https://wa.me/905370587890?text=Merhaba, ${encodeURIComponent(a.name)} hakkında bilgi almak istiyorum." class="card-whatsapp">
+            ${WA_SVG} WhatsApp
+          </a>
+        </div>
+      </div>
+    `).join('');
+    // Re-observe newly created reveal elements
+    grid.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  // ── COUNT-UP STATS ──
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1400;
+    const start = performance.now();
+    function tick(now) {
+      const p = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const val = Math.round(target * eased);
+      el.textContent = prefix + val + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const countEls = document.querySelectorAll('.hero-stat-num[data-count]');
+  // Delay matches the staggered hero-stats reveal animation (1.35s)
+  setTimeout(() => countEls.forEach(animateCount), 1450);
 
   // ── CATEGORY TABS ──
   function switchTab(cat, btn) {
