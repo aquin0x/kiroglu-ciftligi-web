@@ -1,0 +1,209 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog'))
+  .filter(p => !p.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const canonicalURL = new URL('/blog/', Astro.site).toString();
+---
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — Kıroğlu Çiftliği | Kurban, Hayvancılık ve Karadeniz</title>
+<meta name="description" content="Kıroğlu Çiftliği blog: kurban rehberi, hisseli kurban bilgileri, hayvancılık, simental ve yerli ırk dana yetiştiriciliği üzerine yazılar." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="tr_TR" />
+<meta property="og:site_name" content="Kıroğlu Çiftliği" />
+<meta property="og:title" content="Blog — Kıroğlu Çiftliği" />
+<meta property="og:description" content="Kurban, hayvancılık ve Karadeniz çiftliği üzerine yazılar." />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content="https://kirogluciftligi.com/images/webp/wallpaper.webp" />
+
+<meta name="theme-color" content="#2D4A1E" />
+<link rel="icon" type="image/webp" href="/images/webp/animals/animal-1/animal-1.webp" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --green-deep:  #2D4A1E;
+    --green-mid:   #3D6129;
+    --cream-soft:  #FBF6ED;
+    --cream-dark:  #EAD9BB;
+    --gold:        #C9963A;
+    --gold-dark:   #A67828;
+    --text-dark:   #1C2A12;
+    --text-mid:    #4A5C38;
+    --text-light:  #7A8C6A;
+    --white:       #FEFCF8;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream-soft);
+    color: var(--text-dark);
+    max-width: 720px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+
+  .blog-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(45,74,30,0.08);
+  }
+  .blog-nav-logo {
+    font-family: var(--serif);
+    font-size: 18px; font-weight: 700;
+    color: var(--text-dark);
+  }
+  .blog-nav-logo span { color: var(--gold-dark); }
+  .blog-nav-back {
+    font-size: 13px; color: var(--text-mid); font-weight: 500;
+  }
+
+  .blog-header {
+    padding: 40px 20px 28px;
+    text-align: center;
+    border-bottom: 1px solid rgba(45,74,30,0.08);
+  }
+  .blog-header-eyebrow {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 10px;
+  }
+  .blog-header h1 {
+    font-family: var(--serif);
+    font-size: 36px; font-weight: 700;
+    line-height: 1.1;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+  }
+  .blog-header p {
+    font-size: 14px; color: var(--text-mid);
+    max-width: 480px; margin: 0 auto;
+  }
+
+  .post-list {
+    padding: 24px 16px 60px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .post-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 18px 18px 16px;
+    border: 1px solid rgba(45,74,30,0.06);
+    box-shadow: 0 2px 12px rgba(45,74,30,0.05);
+    transition: transform .25s, box-shadow .25s;
+    display: block;
+  }
+  .post-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(45,74,30,0.12);
+  }
+  .post-card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 14px;
+  }
+  .post-card-meta {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.2px; text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 6px;
+  }
+  .post-card-title {
+    font-family: var(--serif);
+    font-size: 20px; font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.25;
+    margin-bottom: 6px;
+  }
+  .post-card-desc {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.55;
+    margin-bottom: 10px;
+  }
+  .post-card-tags {
+    display: flex; gap: 5px; flex-wrap: wrap;
+  }
+  .post-card-tag {
+    font-size: 10px; font-weight: 600;
+    background: var(--cream-dark);
+    color: var(--text-mid);
+    padding: 3px 9px;
+    border-radius: 999px;
+  }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+    font-size: 14px;
+  }
+
+  footer.blog-footer {
+    text-align: center;
+    padding: 28px 20px;
+    background: var(--green-deep);
+    color: rgba(245,236,215,0.7);
+    font-size: 12px;
+  }
+</style>
+</head>
+<body>
+<nav class="blog-nav">
+  <a href="/" class="blog-nav-logo">Kıroğlu <span>Çiftliği</span></a>
+  <a href="/" class="blog-nav-back">← Ana Sayfa</a>
+</nav>
+
+<header class="blog-header">
+  <p class="blog-header-eyebrow">Blog</p>
+  <h1>Kurban, Çiftlik ve Karadeniz</h1>
+  <p>Doğal hayvancılık, kurban rehberi ve çiftlik hayatından kesitler.</p>
+</header>
+
+<div class="post-list">
+  {posts.length === 0 ? (
+    <div class="empty">Henüz yazı yok. Yakında ilk yazımız burada olacak.</div>
+  ) : (
+    posts.map(post => (
+      <a href={`/blog/${post.id}/`} class="post-card">
+        {post.data.image && (
+          <img class="post-card-image" src={post.data.image} alt={post.data.imageAlt ?? post.data.title} loading="lazy" />
+        )}
+        <p class="post-card-meta">
+          {post.data.pubDate.toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </p>
+        <h2 class="post-card-title">{post.data.title}</h2>
+        <p class="post-card-desc">{post.data.description}</p>
+        {post.data.tags.length > 0 && (
+          <div class="post-card-tags">
+            {post.data.tags.slice(0, 3).map(tag => <span class="post-card-tag">{tag}</span>)}
+          </div>
+        )}
+      </a>
+    ))
+  )}
+</div>
+
+<footer class="blog-footer">
+  <p>© 2026 Kıroğlu Çiftliği · 2011'den beri doğal, güvenilir, helal.</p>
+</footer>
+</body>
+</html>

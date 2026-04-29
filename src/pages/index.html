@@ -1257,6 +1257,10 @@
   /* section spacing */
   section + .section-header { margin-top: 8px; }
 
+  /* Fiyatlar geçici olarak gizlendi — doğru veriler gelince kaldır */
+  .modal-price,
+  .card-info-row:has(.card-info-value.price) { display: none !important; }
+
   /* ══════════════════════════════════
      ANIMAL DETAIL MODAL
   ══════════════════════════════════ */
@@ -2120,6 +2124,7 @@
 <footer>
   <div class="footer-logo">Kıroğlu <span>Çiftliği</span></div>
   <p class="footer-slogan">2011'den beri doğal, güvenilir, helal.</p>
+  <p style="margin:10px 0 14px;"><a href="/blog/" style="color:var(--gold-light);font-weight:600;font-size:13px;text-decoration:none;border-bottom:1px solid rgba(226,185,106,0.4);padding-bottom:1px;">📖 Blog — Kurban Rehberi ve Yazılar</a></p>
   <div class="social-row">
     <a href="https://instagram.com/ysn.sandikci" target="_blank" rel="noopener" class="social-btn" aria-label="Instagram">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="rgba(245,236,215,0.6)" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke="rgba(245,236,215,0.6)" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="rgba(245,236,215,0.6)"/></svg>
@@ -2271,11 +2276,11 @@
          images: ['animal-4.webp','IMG_1980.webp','IMG_1997.webp'] },
     5: { breed: 'Simental Melezi', age: '2 yaş', weight: '470-510 kg', pricePerShare: '₺26.500 - ₺29.000', gender: 'Dişi', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-5.webp','IMG_1975.webp','IMG_2004.webp','IMG_2006.webp'] },
-    6: { breed: 'Yerli Irk', age: '2 yaş', weight: '485-525 kg', pricePerShare: '₺27.000 - ₺29.500', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    6: { breed: 'Yerli Irk', age: '2 yaş', weight: '485-525 kg', pricePerShare: '₺27.000 - ₺29.500', gender: 'Dişi', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-6.webp','IMG_1989.webp','IMG_1991.webp'] },
-    7: { breed: 'Yerli Irk', age: '2 yaş', weight: '495-535 kg', pricePerShare: '₺27.500 - ₺30.000', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    7: { breed: 'Yerli Irk', age: '2 yaş', weight: '495-535 kg', pricePerShare: '₺27.500 - ₺30.000', gender: 'Erkek', status: 'sold', shares: 7, type: 'Büyükbaş Kurbanlık',
          images: ['animal-7.webp','IMG_1985.webp','IMG_1994.webp'] },
-    8: { breed: 'Yerli Irk', age: '2 yaş', weight: '505-545 kg', pricePerShare: '₺28.000 - ₺30.500', gender: 'Erkek', status: 'sold', shares: 7, type: 'Büyükbaş Kurbanlık',
+    8: { breed: 'Yerli Irk', age: '2 yaş', weight: '505-545 kg', pricePerShare: '₺28.000 - ₺30.500', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-8.webp','IMG_1974.webp','IMG_1984.webp'] },
     9: { breed: 'Yerli Irk', age: '2 yaş', weight: '515-555 kg', pricePerShare: '₺28.500 - ₺31.000', gender: 'Erkek', status: 'sold', shares: 7, type: 'Büyükbaş Kurbanlık',
          images: ['animal-9.webp','IMG_1983.webp','IMG_1996.webp','IMG_2003.webp'] },

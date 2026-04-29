@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /scripts/
-
-Sitemap: https://kirogluciftligi.com/sitemap.xml

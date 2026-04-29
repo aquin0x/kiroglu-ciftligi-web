@@ -1,0 +1,334 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author?: string;
+  image?: string;
+  imageAlt?: string;
+  tags?: string[];
+  slug: string;
+}
+
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  author = 'Kıroğlu Çiftliği',
+  image,
+  imageAlt,
+  tags = [],
+  slug,
+} = Astro.props;
+
+const canonicalURL = new URL(`/blog/${slug}/`, Astro.site).toString();
+const ogImage = image
+  ? new URL(image, Astro.site).toString()
+  : new URL('/images/webp/wallpaper.webp', Astro.site).toString();
+
+const formattedDate = pubDate.toLocaleDateString('tr-TR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: ogImage,
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': 'Organization', name: author, url: 'https://kirogluciftligi.com' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Kıroğlu Çiftliği',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://kirogluciftligi.com/images/webp/wallpaper.webp',
+    },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalURL },
+  keywords: tags.join(', '),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: 'https://kirogluciftligi.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://kirogluciftligi.com/blog/' },
+    { '@type': 'ListItem', position: 3, name: title, item: canonicalURL },
+  ],
+};
+---
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title} | Kıroğlu Çiftliği Blog</title>
+<meta name="description" content={description} />
+<meta name="author" content={author} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+{tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />}
+<link rel="canonical" href={canonicalURL} />
+
+<meta property="og:type" content="article" />
+<meta property="og:locale" content="tr_TR" />
+<meta property="og:site_name" content="Kıroğlu Çiftliği" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={ogImage} />
+<meta property="article:published_time" content={pubDate.toISOString()} />
+{updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+{tags.map(tag => <meta property="article:tag" content={tag} />)}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<meta name="theme-color" content="#2D4A1E" />
+<link rel="icon" type="image/webp" href="/images/webp/animals/animal-1/animal-1.webp" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+
+<style>
+  :root {
+    --green-deep:  #2D4A1E;
+    --green-mid:   #3D6129;
+    --green-light: #5A7F3F;
+    --cream:       #F5ECD7;
+    --cream-dark:  #EAD9BB;
+    --cream-soft:  #FBF6ED;
+    --gold:        #C9963A;
+    --gold-light:  #E2B96A;
+    --gold-dark:   #A67828;
+    --text-dark:   #1C2A12;
+    --text-mid:    #4A5C38;
+    --text-light:  #7A8C6A;
+    --white:       #FEFCF8;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'DM Sans', system-ui, sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream-soft);
+    color: var(--text-dark);
+    max-width: 720px;
+    margin: 0 auto;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  a { color: var(--gold-dark); text-decoration: underline; text-underline-offset: 3px; }
+  a:hover { color: var(--green-mid); }
+  img { max-width: 100%; height: auto; display: block; border-radius: 12px; margin: 18px 0; }
+
+  .blog-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--cream-soft);
+    border-bottom: 1px solid rgba(45,74,30,0.08);
+  }
+  .blog-nav-logo {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-decoration: none;
+  }
+  .blog-nav-logo span { color: var(--gold-dark); }
+  .blog-nav-back {
+    font-size: 13px;
+    color: var(--text-mid);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  article { padding: 24px 20px 60px; }
+  .post-eyebrow {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 8px;
+  }
+  .post-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--text-dark);
+    margin-bottom: 14px;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(45,74,30,0.1);
+  }
+  .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-light); }
+
+  .post-hero {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 14px;
+    margin-bottom: 24px;
+  }
+
+  .post-content { font-size: 16px; color: var(--text-dark); }
+  .post-content > * + * { margin-top: 16px; }
+  .post-content h2 {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 36px;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .post-content h3 {
+    font-family: var(--serif);
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-top: 28px;
+    margin-bottom: 6px;
+  }
+  .post-content p { line-height: 1.7; }
+  .post-content ul, .post-content ol { padding-left: 22px; }
+  .post-content li { margin-bottom: 6px; line-height: 1.65; }
+  .post-content strong { color: var(--text-dark); font-weight: 700; }
+  .post-content blockquote {
+    border-left: 3px solid var(--gold);
+    background: var(--white);
+    padding: 14px 16px;
+    color: var(--text-mid);
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+  }
+  .post-content code {
+    background: var(--cream-dark);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .post-content hr {
+    border: none;
+    border-top: 1px solid rgba(45,74,30,0.12);
+    margin: 28px 0;
+  }
+
+  .post-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(45,74,30,0.1);
+  }
+  .post-tag {
+    font-size: 11px;
+    font-weight: 600;
+    background: var(--cream-dark);
+    color: var(--text-mid);
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.3px;
+  }
+
+  .post-cta {
+    margin-top: 36px;
+    padding: 22px 20px;
+    background: linear-gradient(135deg, var(--green-deep), var(--green-mid));
+    color: var(--cream);
+    border-radius: 16px;
+    text-align: center;
+  }
+  .post-cta h3 {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .post-cta p { font-size: 13px; color: var(--cream); opacity: 0.85; margin-bottom: 14px; }
+  .post-cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--text-dark);
+    padding: 11px 22px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+  }
+
+  footer.blog-footer {
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+    color: var(--text-light);
+    background: var(--green-deep);
+    color: rgba(245,236,215,0.7);
+  }
+  footer.blog-footer a { color: var(--gold-light); }
+</style>
+</head>
+<body>
+<nav class="blog-nav">
+  <a href="/" class="blog-nav-logo">Kıroğlu <span>Çiftliği</span></a>
+  <a href="/blog/" class="blog-nav-back">← Blog</a>
+</nav>
+
+<article>
+  <p class="post-eyebrow">Blog</p>
+  <h1 class="post-title">{title}</h1>
+  <div class="post-meta">
+    <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+    <span class="post-meta-dot"></span>
+    <span>{author}</span>
+  </div>
+
+  {image && <img class="post-hero" src={image} alt={imageAlt ?? title} loading="eager" />}
+
+  <div class="post-content">
+    <slot />
+  </div>
+
+  {tags.length > 0 && (
+    <div class="post-tags">
+      {tags.map(tag => <span class="post-tag">{tag}</span>)}
+    </div>
+  )}
+
+  <div class="post-cta">
+    <h3>Kurban 2026 — Sınırlı Sayıda</h3>
+    <p>Doğal beslenmiş büyükbaş hayvanlarımızı şimdi inceleyin</p>
+    <a href="/#hayvanlar" class="post-cta-btn">Hayvanları Gör</a>
+  </div>
+</article>
+
+<footer class="blog-footer">
+  <p>© 2026 Kıroğlu Çiftliği · 2011'den beri doğal, güvenilir, helal.</p>
+</footer>
+</body>
+</html>
