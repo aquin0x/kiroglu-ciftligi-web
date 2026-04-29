@@ -564,6 +564,39 @@
   }
   .badge-buyukbas { background: var(--green-mid); }
   .badge-kucukbas { background: #7B5E3A; }
+  .card-status-overlay {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 6px;
+    pointer-events: none;
+  }
+  .card-shares {
+    background: rgba(255,255,255,0.95);
+    color: var(--green-deep);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 9px;
+    border-radius: 999px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .card-shares::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #3D9B53;
+  }
+  .card-shares.sold { background: #C0392B; color: #fff; }
+  .card-shares.sold::before { background: #fff; }
+  .card-shares.partial { background: rgba(255,255,255,0.95); color: var(--gold-dark); }
+  .card-shares.partial::before { background: var(--gold); }
   .badge-hot {
     position: absolute;
     top: 8px;
@@ -1010,6 +1043,276 @@
 
   /* section spacing */
   section + .section-header { margin-top: 8px; }
+
+  /* ══════════════════════════════════
+     ANIMAL DETAIL MODAL
+  ══════════════════════════════════ */
+  body.modal-open { overflow: hidden; }
+  .animal-modal {
+    position: fixed; inset: 0;
+    background: rgba(15, 22, 8, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    animation: modalFade .25s ease;
+  }
+  .animal-modal.open { display: flex; }
+  .modal-sheet {
+    width: 100%;
+    max-width: 420px;
+    background: var(--cream-soft);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    animation: sheetIn .32s cubic-bezier(.22,.8,.36,1);
+  }
+  @keyframes sheetIn {
+    from { transform: translateY(20px) scale(0.96); opacity: 0; }
+    to { transform: none; opacity: 1; }
+  }
+  @keyframes modalFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .modal-close {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .modal-close svg { display:block; }
+
+  .modal-gallery {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    max-height: 50vh;
+    background: #1a1a1a;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .modal-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.34s cubic-bezier(.22,.8,.36,1);
+    will-change: transform;
+  }
+  .modal-track.dragging { transition: none; }
+  .modal-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .modal-slide img {
+    width: 100%; height: 100%;
+    object-fit: contain;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+  }
+  .modal-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: opacity .2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .modal-arrow:disabled { opacity: 0.35; cursor: default; }
+  .modal-arrow.prev { left: 10px; }
+  .modal-arrow.next { right: 10px; }
+  .modal-counter {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 999px;
+    z-index: 3;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  .modal-dots {
+    position: absolute;
+    bottom: 10px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 6px;
+    z-index: 3;
+  }
+  .modal-dots span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    transition: all .25s ease;
+  }
+  .modal-dots span.active {
+    background: #fff;
+    width: 18px;
+    border-radius: 4px;
+  }
+
+  .modal-body {
+    background: var(--cream-soft);
+    padding: 16px 16px 18px;
+    position: relative;
+  }
+  .modal-eyebrow {
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 4px;
+  }
+  .modal-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .modal-status-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .status-pill {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .status-available { background: #E8F5E9; color: #2E7D32; }
+  .status-sold { background: #FFEBEE; color: #C0392B; }
+
+  .shares-block { flex: 1; min-width: 140px; }
+  .shares-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 5px;
+  }
+  .shares-label strong { color: var(--text-dark); font-weight: 700; }
+  .shares-track {
+    height: 8px;
+    background: var(--cream-dark);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .shares-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    border-radius: 999px;
+    transition: width .5s ease;
+  }
+  .shares-fill.full {
+    background: linear-gradient(90deg, #C0392B 0%, #E74C3C 100%);
+  }
+
+  .modal-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .spec-item {
+    background: var(--white);
+    border: 1px solid rgba(45,74,30,0.08);
+    border-radius: 10px;
+    padding: 8px 10px;
+  }
+  .spec-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 2px;
+  }
+  .spec-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-family: var(--serif);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+  }
+  .modal-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 11px 8px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .modal-btn-wa { background: #25D366; color: #fff; }
+  .modal-btn-call {
+    background: var(--green-deep);
+    color: var(--cream);
+  }
+  .modal-btn:active { transform: scale(0.98); }
+
+  .modal-swipe-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255,255,255,0.7);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .animal-modal.open .modal-swipe-hint { opacity: 1; animation: hintFade 2.5s ease forwards; }
+  @keyframes hintFade {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+  }
 </style>
 </head>
 <body>
@@ -1091,9 +1394,9 @@
   <div class="animal-section active" data-cat="buyukbas" style="display:block">
     <div class="cards-grid" id="animal-cards-grid">
 
-      <div class="animal-card reveal">
+      <div class="animal-card reveal" data-animal-id="1">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-1.webp" alt="Hayvan No. 1" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-1/animal-1.webp" alt="Hayvan No. 1" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
           <span class="badge-hot">YENİ</span>
         </div>
@@ -1108,9 +1411,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-1">
+      <div class="animal-card reveal reveal-delay-1" data-animal-id="2">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-2.webp" alt="Hayvan No. 2" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-2/animal-2.webp" alt="Hayvan No. 2" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1124,9 +1427,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-2">
+      <div class="animal-card reveal reveal-delay-2" data-animal-id="3">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-3.webp" alt="Hayvan No. 3" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-3/animal-3.webp" alt="Hayvan No. 3" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1140,9 +1443,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-3">
+      <div class="animal-card reveal reveal-delay-3" data-animal-id="4">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-4.webp" alt="Hayvan No. 4" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-4/animal-4.webp" alt="Hayvan No. 4" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1156,9 +1459,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal">
+      <div class="animal-card reveal" data-animal-id="5">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-5.webp" alt="Hayvan No. 5" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-5/animal-5.webp" alt="Hayvan No. 5" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1172,9 +1475,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-1">
+      <div class="animal-card reveal reveal-delay-1" data-animal-id="6">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-6.webp" alt="Hayvan No. 6" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-6/animal-6.webp" alt="Hayvan No. 6" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1188,9 +1491,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-2">
+      <div class="animal-card reveal reveal-delay-2" data-animal-id="7">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-7.webp" alt="Hayvan No. 7" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-7/animal-7.webp" alt="Hayvan No. 7" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1204,9 +1507,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal reveal-delay-3">
+      <div class="animal-card reveal reveal-delay-3" data-animal-id="8">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-8.webp" alt="Hayvan No. 8" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-8/animal-8.webp" alt="Hayvan No. 8" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1220,9 +1523,9 @@
         </div>
       </div>
 
-      <div class="animal-card reveal">
+      <div class="animal-card reveal" data-animal-id="9">
         <div class="card-image">
-          <img class="card-photo" src="images/webp/animals/animal-9.webp" alt="Hayvan No. 9" loading="lazy">
+          <img class="card-photo" src="images/webp/animals/animal-9/animal-9.webp" alt="Hayvan No. 9" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
         </div>
         <div class="card-body">
@@ -1591,6 +1894,54 @@
   <p class="footer-copy">©2026 Tüm Hakları Saklıdır — <a href="https://frax.tr" target="_blank" rel="noopener" style="color:var(--gold-light);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(226,185,106,0.4);padding-bottom:1px;">frax labs</a> Tarafından Hazırlanmıştır.</p>
 </footer>
 
+<!-- ── HAYVAN DETAY MODALI ── -->
+<div class="animal-modal" id="animalModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+ <div class="modal-sheet">
+  <button class="modal-close" id="modalClose" aria-label="Kapat">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <div class="modal-gallery">
+    <span class="modal-counter" id="modalCounter">1 / 1</span>
+    <div class="modal-track" id="modalTrack"></div>
+    <button class="modal-arrow prev" id="modalPrev" aria-label="Önceki">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="#1C2A12" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <button class="modal-arrow next" id="modalNext" aria-label="Sonraki">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="#1C2A12" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <div class="modal-dots" id="modalDots"></div>
+    <span class="modal-swipe-hint">← Kaydır →</span>
+  </div>
+  <div class="modal-body">
+    <p class="modal-eyebrow" id="modalEyebrow">Büyükbaş Kurbanlık</p>
+    <h2 class="modal-title" id="modalTitle">Hayvan No.</h2>
+    <div class="modal-status-row">
+      <span class="status-pill status-available" id="modalStatus">MEVCUT</span>
+      <div class="shares-block">
+        <div class="shares-label"><span>Hisse Doluluk</span><strong id="modalSharesText">0/7</strong></div>
+        <div class="shares-track"><div class="shares-fill" id="modalSharesFill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="modal-specs">
+      <div class="spec-item"><p class="spec-label">Irk</p><p class="spec-value" id="specBreed">—</p></div>
+      <div class="spec-item"><p class="spec-label">Yaş</p><p class="spec-value" id="specAge">—</p></div>
+      <div class="spec-item"><p class="spec-label">Canlı Ağırlık</p><p class="spec-value" id="specWeight">—</p></div>
+      <div class="spec-item"><p class="spec-label">Cinsiyet</p><p class="spec-value" id="specGender">—</p></div>
+    </div>
+    <div class="modal-actions">
+      <a href="#" id="modalWA" class="modal-btn modal-btn-wa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
+        WhatsApp ile Bilgi Al
+      </a>
+      <a href="tel:+905370587890" class="modal-btn modal-btn-call">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" stroke="rgba(245,236,215,0.95)" stroke-width="1.8"/></svg>
+        Hemen Ara
+      </a>
+    </div>
+  </div>
+ </div>
+</div>
+
 <!-- ── STICKY WHATSAPP ── -->
 <a href="https://wa.me/905370587890?text=Merhaba, kurban için bilgi almak istiyorum." class="sticky-wa" aria-label="WhatsApp">
   <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.559 4.143 1.535 5.882L0 24l6.288-1.492A11.958 11.958 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.82 9.82 0 01-5.012-1.374l-.36-.213-3.735.885.944-3.638-.234-.374A9.818 9.818 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182c5.43 0 9.818 4.388 9.818 9.818 0 5.43-4.388 9.818-9.818 9.818z"/></svg>
@@ -1658,6 +2009,235 @@
     }
     lastScroll = cur;
   }, { passive: true });
+
+  // ══════════════════════════════════
+  //   HAYVAN DETAY VERİLERİ
+  //   (ırk, yaş, kilo, cinsiyet, status, hisse, görseller)
+  //   Buradaki değerleri güncelleyebilirsiniz.
+  // ══════════════════════════════════
+  const ANIMAL_DATA = {
+    1: { breed: 'Simental Melezi', age: '2 yaş', weight: '550 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-1.webp','IMG_1979.webp','IMG_1982.webp','IMG_1998.webp'] },
+    2: { breed: 'Yerli Irk', age: '2 yaş', weight: '520 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-2.webp','IMG_1970.webp','IMG_1986.webp','IMG_1987.webp'] },
+    3: { breed: 'Simental Melezi', age: '2 yaş', weight: '530 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-3.webp','IMG_1972.webp','IMG_1977.webp'] },
+    4: { breed: 'Simental Melezi', age: '2 yaş', weight: '540 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-4.webp','IMG_1980.webp','IMG_1997.webp'] },
+    5: { breed: 'Simental Melezi', age: '2 yaş', weight: '510 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-5.webp','IMG_1975.webp','IMG_2004.webp','IMG_2006.webp'] },
+    6: { breed: 'Simental Melezi', age: '2 yaş', weight: '525 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-6.webp','IMG_1989.webp','IMG_1991.webp'] },
+    7: { breed: 'Simental Melezi', age: '2 yaş', weight: '535 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-7.webp','IMG_1985.webp','IMG_1994.webp'] },
+    8: { breed: 'Simental Melezi', age: '2 yaş', weight: '545 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-8.webp','IMG_1974.webp','IMG_1984.webp'] },
+    9: { breed: 'Simental Melezi', age: '2 yaş', weight: '555 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+         images: ['animal-9.webp','IMG_1983.webp','IMG_1996.webp','IMG_2003.webp'] },
+  };
+  const TOTAL_SHARES = 7;
+
+  // ── Kart üzerine durum/hisse rozeti enjekte et ──
+  document.querySelectorAll('.animal-card[data-animal-id]').forEach(card => {
+    const id = card.dataset.animalId;
+    const data = ANIMAL_DATA[id];
+    if (!data) return;
+    const cardImage = card.querySelector('.card-image');
+    if (!cardImage) return;
+    const overlay = document.createElement('div');
+    overlay.className = 'card-status-overlay';
+    let pillClass = 'card-shares';
+    let pillText;
+    if (data.status === 'sold' || data.shares >= TOTAL_SHARES) {
+      pillClass += ' sold';
+      pillText = 'SATILDI';
+    } else if (data.shares > 0) {
+      pillClass += ' partial';
+      pillText = data.shares + '/' + TOTAL_SHARES + ' Hisse';
+    } else {
+      pillText = 'Mevcut · ' + TOTAL_SHARES + ' Hisse';
+    }
+    overlay.innerHTML = '<span class="' + pillClass + '">' + pillText + '</span>';
+    cardImage.appendChild(overlay);
+  });
+
+  // ══════════════════════════════════
+  //   MODAL & SWIPE GALLERY
+  // ══════════════════════════════════
+  const modal = document.getElementById('animalModal');
+  const modalTrack = document.getElementById('modalTrack');
+  const modalDots = document.getElementById('modalDots');
+  const modalPrev = document.getElementById('modalPrev');
+  const modalNext = document.getElementById('modalNext');
+  const modalClose = document.getElementById('modalClose');
+  const modalCounter = document.getElementById('modalCounter');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalEyebrow = document.getElementById('modalEyebrow');
+  const modalStatus = document.getElementById('modalStatus');
+  const modalSharesText = document.getElementById('modalSharesText');
+  const modalSharesFill = document.getElementById('modalSharesFill');
+  const modalWA = document.getElementById('modalWA');
+  const specBreed = document.getElementById('specBreed');
+  const specAge = document.getElementById('specAge');
+  const specWeight = document.getElementById('specWeight');
+  const specGender = document.getElementById('specGender');
+
+  let currentSlide = 0;
+  let slideCount = 0;
+
+  function renderDots() {
+    modalDots.innerHTML = '';
+    for (let i = 0; i < slideCount; i++) {
+      const d = document.createElement('span');
+      if (i === currentSlide) d.classList.add('active');
+      modalDots.appendChild(d);
+    }
+  }
+  function goToSlide(idx) {
+    currentSlide = Math.max(0, Math.min(slideCount - 1, idx));
+    modalTrack.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+    modalCounter.textContent = (currentSlide + 1) + ' / ' + slideCount;
+    [...modalDots.children].forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+    modalPrev.disabled = currentSlide === 0;
+    modalNext.disabled = currentSlide === slideCount - 1;
+  }
+
+  function openModal(id) {
+    const data = ANIMAL_DATA[id];
+    if (!data) return;
+
+    // Galeri
+    modalTrack.innerHTML = '';
+    data.images.forEach((file, i) => {
+      const slide = document.createElement('div');
+      slide.className = 'modal-slide';
+      const img = document.createElement('img');
+      img.src = 'images/webp/animals/animal-' + id + '/' + file;
+      img.alt = 'Hayvan No. ' + id + ' - ' + (i + 1);
+      img.loading = i === 0 ? 'eager' : 'lazy';
+      slide.appendChild(img);
+      modalTrack.appendChild(slide);
+    });
+    slideCount = data.images.length;
+    currentSlide = 0;
+    renderDots();
+    modalTrack.style.transition = 'none';
+    modalTrack.style.transform = 'translateX(0)';
+    requestAnimationFrame(() => { modalTrack.style.transition = ''; goToSlide(0); });
+
+    // Detaylar
+    modalTitle.textContent = 'Hayvan No. ' + id;
+    modalEyebrow.textContent = data.type || 'Kurbanlık';
+    specBreed.textContent = data.breed || '—';
+    specAge.textContent = data.age || '—';
+    specWeight.textContent = data.weight || '—';
+    specGender.textContent = data.gender || '—';
+
+    // Durum
+    const isSold = data.status === 'sold' || data.shares >= TOTAL_SHARES;
+    modalStatus.className = 'status-pill ' + (isSold ? 'status-sold' : 'status-available');
+    modalStatus.textContent = isSold ? 'SATILDI' : 'MEVCUT';
+
+    // Hisse
+    const shares = Math.min(TOTAL_SHARES, data.shares || 0);
+    modalSharesText.textContent = shares + '/' + TOTAL_SHARES;
+    const pct = (shares / TOTAL_SHARES) * 100;
+    modalSharesFill.style.width = pct + '%';
+    modalSharesFill.classList.toggle('full', shares >= TOTAL_SHARES);
+
+    // WhatsApp linki
+    modalWA.href = 'https://wa.me/905370587890?text=' +
+      encodeURIComponent('Merhaba, Hayvan No. ' + id + ' hakkında bilgi almak istiyorum.');
+
+    modal.classList.add('open');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.classList.remove('modal-open');
+  }
+
+  // Kart tıklamaları (WhatsApp butonu hariç)
+  document.querySelectorAll('.animal-card[data-animal-id]').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.card-whatsapp')) return;
+      openModal(card.dataset.animalId);
+    });
+  });
+
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  modalPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+  modalNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') closeModal();
+    else if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+    else if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+  });
+
+  // ── Swipe / drag ──
+  let dragStartX = 0, dragDeltaX = 0, dragging = false, dragStartY = 0, lockedAxis = null;
+  const gallery = document.querySelector('.modal-gallery');
+
+  function onDragStart(x, y) {
+    dragStartX = x; dragStartY = y; dragDeltaX = 0; dragging = true; lockedAxis = null;
+    modalTrack.classList.add('dragging');
+  }
+  function onDragMove(x, y) {
+    if (!dragging) return;
+    const dx = x - dragStartX;
+    const dy = y - dragStartY;
+    if (!lockedAxis) {
+      if (Math.abs(dx) > 8 || Math.abs(dy) > 8) {
+        lockedAxis = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      }
+    }
+    if (lockedAxis === 'y') return;
+    dragDeltaX = dx;
+    const pct = -currentSlide * 100 + (dx / gallery.clientWidth) * 100;
+    modalTrack.style.transform = 'translateX(' + pct + '%)';
+  }
+  function onDragEnd() {
+    if (!dragging) return;
+    dragging = false;
+    modalTrack.classList.remove('dragging');
+    if (lockedAxis !== 'y') {
+      const threshold = gallery.clientWidth * 0.18;
+      if (dragDeltaX < -threshold) goToSlide(currentSlide + 1);
+      else if (dragDeltaX > threshold) goToSlide(currentSlide - 1);
+      else goToSlide(currentSlide);
+    } else {
+      goToSlide(currentSlide);
+    }
+  }
+
+  gallery.addEventListener('touchstart', (e) => {
+    onDragStart(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  gallery.addEventListener('touchmove', (e) => {
+    onDragMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: true });
+  gallery.addEventListener('touchend', onDragEnd);
+  gallery.addEventListener('touchcancel', onDragEnd);
+
+  // Mouse drag (desktop)
+  gallery.addEventListener('mousedown', (e) => {
+    e.preventDefault();
+    onDragStart(e.clientX, e.clientY);
+    const move = (ev) => onDragMove(ev.clientX, ev.clientY);
+    const up = () => {
+      onDragEnd();
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  });
 </script>
 </body>
 </html>
