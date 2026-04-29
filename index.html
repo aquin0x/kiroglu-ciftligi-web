@@ -6,7 +6,7 @@
 <title>Kıroğlu Çiftliği — Kurban 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ─── TOKENS ─── */
   :root {
@@ -23,7 +23,7 @@
     --text-mid:    #4A5C38;
     --text-light:  #7A8C6A;
     --white:       #FEFCF8;
-    --serif: 'Playfair Display', Georgia, serif;
+    --serif: 'Fraunces', 'Georgia', serif;
     --sans:  'DM Sans', system-ui, sans-serif;
     --radius-card: 18px;
     --shadow-card: 0 4px 24px rgba(45,74,30,0.12);
@@ -597,6 +597,37 @@
   .card-shares.sold::before { background: #fff; }
   .card-shares.partial { background: rgba(255,255,255,0.95); color: var(--gold-dark); }
   .card-shares.partial::before { background: var(--gold); }
+
+  /* SATILDI durumu */
+  .animal-card.is-sold .card-photo {
+    filter: grayscale(0.85) brightness(0.7);
+  }
+  .animal-card.is-sold:hover .card-photo {
+    transform: none;
+  }
+  .animal-card.is-sold {
+    cursor: pointer;
+  }
+  .sold-stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    background: rgba(192, 57, 43, 0.95);
+    color: #fff;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    padding: 8px 18px;
+    border: 3px solid #fff;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 2;
+    white-space: nowrap;
+  }
   .badge-hot {
     position: absolute;
     top: 8px;
@@ -653,6 +684,40 @@
     color: var(--gold-dark);
     margin-top: 8px;
   }
+  .card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid rgba(45,74,30,0.08);
+  }
+  .card-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 6px;
+  }
+  .card-info-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+  .card-info-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dark);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.2px;
+    text-align: right;
+  }
+  .card-info-value.price {
+    color: var(--gold-dark);
+    font-weight: 700;
+  }
+  .animal-card.is-sold .card-info-value.price { color: var(--text-light); text-decoration: line-through; }
   .card-price-sub {
     font-size: 10px;
     color: var(--text-light);
@@ -1197,6 +1262,33 @@
     line-height: 1.2;
   }
 
+  .modal-price {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+    color: var(--cream);
+    padding: 11px 14px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .modal-price-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+  }
+  .modal-price-value {
+    font-family: var(--sans);
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
   .modal-status-row {
     display: flex;
     align-items: center;
@@ -1225,7 +1317,7 @@
     color: var(--text-mid);
     margin-bottom: 5px;
   }
-  .shares-label strong { color: var(--text-dark); font-weight: 700; }
+  .shares-label strong { color: var(--text-dark); font-weight: 700; font-variant-numeric: tabular-nums; }
   .shares-track {
     height: 8px;
     background: var(--cream-dark);
@@ -1263,10 +1355,12 @@
     margin-bottom: 2px;
   }
   .spec-value {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--text-dark);
-    font-family: var(--serif);
+    font-family: var(--sans);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.2px;
   }
 
   .modal-actions {
@@ -1326,7 +1420,7 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-image-wrap">
-    <img src="images/webp/IMG_1979.webp" alt="Kıroğlu Çiftliği" class="hero-bg-img" loading="eager" fetchpriority="high">
+    <img src="images/webp/wallpaper.webp" alt="Kıroğlu Çiftliği" class="hero-bg-img" loading="eager" fetchpriority="high">
   </div>
   <div class="hero-particles" aria-hidden="true">
     <span class="particle"></span>
@@ -1398,7 +1492,6 @@
         <div class="card-image">
           <img class="card-photo" src="images/webp/animals/animal-1/animal-1.webp" alt="Hayvan No. 1" loading="lazy">
           <span class="card-badge badge-buyukbas">Büyükbaş</span>
-          <span class="badge-hot">YENİ</span>
         </div>
         <div class="card-body">
           <p class="card-type">Büyükbaş Kurbanlık</p>
@@ -1771,7 +1864,7 @@
       </div>
       <div class="milestone">
         <div class="milestone-num">150+</div>
-        <div class="milestone-label">Mutlu Aile / Yıl</div>
+        <div class="milestone-label">Toplam Mutlu Aile</div>
       </div>
       <div class="milestone">
         <div class="milestone-num">700+</div>
@@ -1792,7 +1885,7 @@
     <div class="location-card">
       <iframe
         class="map-embed"
-        src="https://maps.google.com/maps?q=40.75691,40.17594&t=k&z=15&ie=UTF8&iwloc=&output=embed"
+        src="https://maps.google.com/maps?q=K%C4%B1ro%C4%9Flu+%C3%87iftli%C4%9Fi&ll=40.7569487,40.1759576&z=16&t=k&ie=UTF8&output=embed"
         loading="lazy"
         referrerpolicy="no-referrer-when-downgrade"
         allowfullscreen
@@ -1800,7 +1893,7 @@
       <div class="location-info">
         <h3 class="location-name">Kıroğlu Çiftliği</h3>
         <p class="location-address">Taşçılar Mahallesi, Mesoraş Küme Evleri No:32<br>Dernekpazarı / Trabzon</p>
-        <a href="https://maps.google.com/?q=40.75691,40.17594" class="btn-maps">
+        <a href="https://www.google.com/maps/place/K%C4%B1ro%C4%9Flu+%C3%87iftli%C4%9Fi/@40.7569487,40.1759576,17z/data=!3m1!1e3!4m6!3m5!1s0x4065c7a74314dfb3:0xc11815cd031a38e9!8m2!3d40.7569487!4d40.1759576!16s%2Fg%2F11z6mnjj2j" class="btn-maps" target="_blank" rel="noopener">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="rgba(245,236,215,0.9)"/></svg>
           Google Haritalar'da Aç
         </a>
@@ -1915,6 +2008,10 @@
   <div class="modal-body">
     <p class="modal-eyebrow" id="modalEyebrow">Büyükbaş Kurbanlık</p>
     <h2 class="modal-title" id="modalTitle">Hayvan No.</h2>
+    <div class="modal-price">
+      <span class="modal-price-label">Hisse Başı Fiyat</span>
+      <span class="modal-price-value" id="modalPrice">—</span>
+    </div>
     <div class="modal-status-row">
       <span class="status-pill status-available" id="modalStatus">MEVCUT</span>
       <div class="shares-block">
@@ -2012,27 +2109,27 @@
 
   // ══════════════════════════════════
   //   HAYVAN DETAY VERİLERİ
-  //   (ırk, yaş, kilo, cinsiyet, status, hisse, görseller)
+  //   weight ve pricePerShare aralık olarak girilebilir.
   //   Buradaki değerleri güncelleyebilirsiniz.
   // ══════════════════════════════════
   const ANIMAL_DATA = {
-    1: { breed: 'Simental Melezi', age: '2 yaş', weight: '550 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    1: { breed: 'Simental', age: '2 yaş', weight: '500-550 kg', pricePerShare: '₺28.000 - ₺31.000', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-1.webp','IMG_1979.webp','IMG_1982.webp','IMG_1998.webp'] },
-    2: { breed: 'Yerli Irk', age: '2 yaş', weight: '520 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    2: { breed: 'Yerli Irk', age: '2 yaş', weight: '480-520 kg', pricePerShare: '₺26.000 - ₺29.000', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-2.webp','IMG_1970.webp','IMG_1986.webp','IMG_1987.webp'] },
-    3: { breed: 'Simental Melezi', age: '2 yaş', weight: '530 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    3: { breed: 'Simental Melezi', age: '2 yaş', weight: '490-530 kg', pricePerShare: '₺27.000 - ₺30.000', gender: 'Dişi', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-3.webp','IMG_1972.webp','IMG_1977.webp'] },
-    4: { breed: 'Simental Melezi', age: '2 yaş', weight: '540 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    4: { breed: 'Simental', age: '2 yaş', weight: '500-540 kg', pricePerShare: '₺28.000 - ₺30.500', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-4.webp','IMG_1980.webp','IMG_1997.webp'] },
-    5: { breed: 'Simental Melezi', age: '2 yaş', weight: '510 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    5: { breed: 'Simental Melezi', age: '2 yaş', weight: '470-510 kg', pricePerShare: '₺26.500 - ₺29.000', gender: 'Dişi', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-5.webp','IMG_1975.webp','IMG_2004.webp','IMG_2006.webp'] },
-    6: { breed: 'Simental Melezi', age: '2 yaş', weight: '525 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    6: { breed: 'Yerli Irk', age: '2 yaş', weight: '485-525 kg', pricePerShare: '₺27.000 - ₺29.500', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-6.webp','IMG_1989.webp','IMG_1991.webp'] },
-    7: { breed: 'Simental Melezi', age: '2 yaş', weight: '535 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    7: { breed: 'Yerli Irk', age: '2 yaş', weight: '495-535 kg', pricePerShare: '₺27.500 - ₺30.000', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
          images: ['animal-7.webp','IMG_1985.webp','IMG_1994.webp'] },
-    8: { breed: 'Simental Melezi', age: '2 yaş', weight: '545 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    8: { breed: 'Yerli Irk', age: '2 yaş', weight: '505-545 kg', pricePerShare: '₺28.000 - ₺30.500', gender: 'Erkek', status: 'sold', shares: 7, type: 'Büyükbaş Kurbanlık',
          images: ['animal-8.webp','IMG_1974.webp','IMG_1984.webp'] },
-    9: { breed: 'Simental Melezi', age: '2 yaş', weight: '555 kg', gender: 'Erkek', status: 'available', shares: 0, type: 'Büyükbaş Kurbanlık',
+    9: { breed: 'Yerli Irk', age: '2 yaş', weight: '515-555 kg', pricePerShare: '₺28.500 - ₺31.000', gender: 'Erkek', status: 'sold', shares: 7, type: 'Büyükbaş Kurbanlık',
          images: ['animal-9.webp','IMG_1983.webp','IMG_1996.webp','IMG_2003.webp'] },
   };
   const TOTAL_SHARES = 7;
@@ -2044,21 +2141,51 @@
     if (!data) return;
     const cardImage = card.querySelector('.card-image');
     if (!cardImage) return;
-    const overlay = document.createElement('div');
-    overlay.className = 'card-status-overlay';
-    let pillClass = 'card-shares';
-    let pillText;
-    if (data.status === 'sold' || data.shares >= TOTAL_SHARES) {
-      pillClass += ' sold';
-      pillText = 'SATILDI';
-    } else if (data.shares > 0) {
-      pillClass += ' partial';
-      pillText = data.shares + '/' + TOTAL_SHARES + ' Hisse';
-    } else {
-      pillText = 'Mevcut · ' + TOTAL_SHARES + ' Hisse';
+    const isSold = data.status === 'sold' || data.shares >= TOTAL_SHARES;
+
+    // Kart gövdesine kilo + fiyat bilgisi ekle (eski .card-price'ı değiştir)
+    const cardBody = card.querySelector('.card-body');
+    const oldPrice = cardBody && cardBody.querySelector('.card-price');
+    if (cardBody && data.weight) {
+      const info = document.createElement('div');
+      info.className = 'card-info';
+      const priceText = data.pricePerShare || 'İletişime geçin';
+      info.innerHTML =
+        '<div class="card-info-row">' +
+          '<span class="card-info-label">Kilo</span>' +
+          '<span class="card-info-value">' + data.weight + '</span>' +
+        '</div>' +
+        '<div class="card-info-row">' +
+          '<span class="card-info-label">Hisse</span>' +
+          '<span class="card-info-value price">' + priceText + '</span>' +
+        '</div>';
+      if (oldPrice) oldPrice.replaceWith(info);
+      else cardBody.insertBefore(info, cardBody.querySelector('.card-whatsapp'));
     }
-    overlay.innerHTML = '<span class="' + pillClass + '">' + pillText + '</span>';
-    cardImage.appendChild(overlay);
+
+    if (isSold) {
+      card.classList.add('is-sold');
+      // YENİ rozetini de kaldır
+      const hot = cardImage.querySelector('.badge-hot');
+      if (hot) hot.remove();
+      const stamp = document.createElement('div');
+      stamp.className = 'sold-stamp';
+      stamp.textContent = 'SATILDI';
+      cardImage.appendChild(stamp);
+    } else {
+      const overlay = document.createElement('div');
+      overlay.className = 'card-status-overlay';
+      let pillClass = 'card-shares';
+      let pillText;
+      if (data.shares > 0) {
+        pillClass += ' partial';
+        pillText = data.shares + '/' + TOTAL_SHARES + ' Hisse';
+      } else {
+        pillText = 'Mevcut · ' + TOTAL_SHARES + ' Hisse';
+      }
+      overlay.innerHTML = '<span class="' + pillClass + '">' + pillText + '</span>';
+      cardImage.appendChild(overlay);
+    }
   });
 
   // ══════════════════════════════════
@@ -2077,6 +2204,7 @@
   const modalSharesText = document.getElementById('modalSharesText');
   const modalSharesFill = document.getElementById('modalSharesFill');
   const modalWA = document.getElementById('modalWA');
+  const modalPrice = document.getElementById('modalPrice');
   const specBreed = document.getElementById('specBreed');
   const specAge = document.getElementById('specAge');
   const specWeight = document.getElementById('specWeight');
@@ -2132,6 +2260,7 @@
     specAge.textContent = data.age || '—';
     specWeight.textContent = data.weight || '—';
     specGender.textContent = data.gender || '—';
+    modalPrice.textContent = data.pricePerShare || 'Bilgi için iletişime geçin';
 
     // Durum
     const isSold = data.status === 'sold' || data.shares >= TOTAL_SHARES;
