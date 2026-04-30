@@ -94,7 +94,8 @@ const breadcrumbSchema = {
 <meta name="twitter:image" content={ogImage} />
 
 <meta name="theme-color" content="#2D4A1E" />
-<link rel="icon" type="image/webp" href="/images/webp/animals/animal-1/animal-1.webp" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -140,18 +141,20 @@ const breadcrumbSchema = {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 16px 20px;
+    padding: 10px 20px;
     background: var(--cream-soft);
     border-bottom: 1px solid rgba(45,74,30,0.08);
   }
   .blog-nav-logo {
-    font-family: var(--serif);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-dark);
+    display: flex;
+    align-items: center;
     text-decoration: none;
   }
-  .blog-nav-logo span { color: var(--gold-dark); }
+  .blog-nav-logo img {
+    height: 52px;
+    width: auto;
+    display: block;
+  }
   .blog-nav-back {
     font-size: 13px;
     color: var(--text-mid);
@@ -186,12 +189,38 @@ const breadcrumbSchema = {
   }
   .post-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--text-light); }
 
-  .post-hero {
+  .post-hero-logo {
     width: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
     border-radius: 14px;
     margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .post-hero-logo::before,
+  .post-hero-logo::after {
+    content: '';
+    position: absolute;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,150,58,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .post-hero-logo::before { top: -80px; left: -50px; }
+  .post-hero-logo::after  { bottom: -80px; right: -50px; }
+  .post-hero-logo img {
+    width: auto;
+    height: 96%;
+    max-height: none;
+    margin: 0;
+    border-radius: 0;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 4px 16px rgba(0,0,0,0.25));
   }
 
   .post-content { font-size: 16px; color: var(--text-dark); }
@@ -295,7 +324,9 @@ const breadcrumbSchema = {
 </head>
 <body>
 <nav class="blog-nav">
-  <a href="/" class="blog-nav-logo">Kıroğlu <span>Çiftliği</span></a>
+  <a href="/" class="blog-nav-logo" aria-label="Kıroğlu Çiftliği">
+    <img src="/images/kiroglu-ciftligi-logo.webp" alt="Kıroğlu Çiftliği">
+  </a>
   <a href="/blog/" class="blog-nav-back">← Blog</a>
 </nav>
 
@@ -308,7 +339,9 @@ const breadcrumbSchema = {
     <span>{author}</span>
   </div>
 
-  {image && <img class="post-hero" src={image} alt={imageAlt ?? title} loading="eager" />}
+  <div class="post-hero-logo" role="img" aria-label="Kıroğlu Çiftliği">
+    <img src="/images/kiroglu-ciftligi-logo.webp" alt="Kıroğlu Çiftliği" loading="eager" />
+  </div>
 
   <div class="post-content">
     <slot />

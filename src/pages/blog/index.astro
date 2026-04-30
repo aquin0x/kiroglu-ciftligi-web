@@ -26,7 +26,8 @@ const canonicalURL = new URL('/blog/', Astro.site).toString();
 <meta property="og:image" content="https://kirogluciftligi.com/images/webp/wallpaper.webp" />
 
 <meta name="theme-color" content="#2D4A1E" />
-<link rel="icon" type="image/webp" href="/images/webp/animals/animal-1/animal-1.webp" />
+<link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png" />
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -60,15 +61,18 @@ const canonicalURL = new URL('/blog/', Astro.site).toString();
 
   .blog-nav {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 16px 20px;
+    padding: 10px 20px;
     border-bottom: 1px solid rgba(45,74,30,0.08);
   }
   .blog-nav-logo {
-    font-family: var(--serif);
-    font-size: 18px; font-weight: 700;
-    color: var(--text-dark);
+    display: flex;
+    align-items: center;
   }
-  .blog-nav-logo span { color: var(--gold-dark); }
+  .blog-nav-logo img {
+    height: 52px;
+    width: auto;
+    display: block;
+  }
   .blog-nav-back {
     font-size: 13px; color: var(--text-mid); font-weight: 500;
   }
@@ -116,9 +120,34 @@ const canonicalURL = new URL('/blog/', Astro.site).toString();
   .post-card-image {
     width: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
     border-radius: 10px;
     margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .post-card-image::before,
+  .post-card-image::after {
+    content: '';
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,150,58,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .post-card-image::before { top: -60px; left: -40px; }
+  .post-card-image::after  { bottom: -60px; right: -40px; }
+  .post-card-image img {
+    width: auto;
+    height: 92%;
+    max-width: 80%;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 3px 10px rgba(0,0,0,0.2));
   }
   .post-card-meta {
     font-size: 11px; font-weight: 600;
@@ -168,7 +197,9 @@ const canonicalURL = new URL('/blog/', Astro.site).toString();
 </head>
 <body>
 <nav class="blog-nav">
-  <a href="/" class="blog-nav-logo">Kıroğlu <span>Çiftliği</span></a>
+  <a href="/" class="blog-nav-logo" aria-label="Kıroğlu Çiftliği">
+    <img src="/images/kiroglu-ciftligi-logo.webp" alt="Kıroğlu Çiftliği">
+  </a>
   <a href="/" class="blog-nav-back">← Ana Sayfa</a>
 </nav>
 
@@ -184,9 +215,9 @@ const canonicalURL = new URL('/blog/', Astro.site).toString();
   ) : (
     posts.map(post => (
       <a href={`/blog/${post.id}/`} class="post-card">
-        {post.data.image && (
-          <img class="post-card-image" src={post.data.image} alt={post.data.imageAlt ?? post.data.title} loading="lazy" />
-        )}
+        <div class="post-card-image" role="img" aria-label="Kıroğlu Çiftliği">
+          <img src="/images/kiroglu-ciftligi-logo.webp" alt="Kıroğlu Çiftliği" loading="lazy" />
+        </div>
         <p class="post-card-meta">
           {post.data.pubDate.toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
         </p>
