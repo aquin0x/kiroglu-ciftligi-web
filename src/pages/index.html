@@ -2022,6 +2022,107 @@
         opacity: 0;
       }
     }
+
+    /* ══════════════════════════════════
+       COUNTDOWN
+    ══════════════════════════════════ */
+    .countdown-section {
+      padding: 24px 16px 8px;
+    }
+    .countdown-card {
+      background: linear-gradient(135deg, var(--green-deep) 0%, var(--green-mid) 100%);
+      border-radius: 20px;
+      padding: 24px 20px 22px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(45,74,30,0.25);
+    }
+    .countdown-card::before {
+      content: '';
+      position: absolute;
+      top: -30px; right: -30px;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(226,185,106,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .countdown-card::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; left: -20px;
+      width: 80px; height: 80px;
+      background: radial-gradient(circle, rgba(226,185,106,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .countdown-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .countdown-icon {
+      width: 38px; height: 38px;
+      background: rgba(226,185,106,0.2);
+      border: 1px solid rgba(226,185,106,0.35);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .countdown-title {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.2;
+    }
+    .countdown-subtitle {
+      font-size: 11px;
+      color: rgba(245,236,215,0.6);
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .countdown-unit {
+      background: rgba(245,236,215,0.08);
+      border: 1px solid rgba(245,236,215,0.12);
+      border-radius: 14px;
+      padding: 14px 6px 12px;
+      text-align: center;
+      position: relative;
+    }
+    .countdown-num {
+      font-family: var(--serif);
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--gold-light);
+      line-height: 1;
+      letter-spacing: -1px;
+      display: block;
+      text-shadow: 0 2px 12px rgba(201,150,58,0.35);
+      font-variant-numeric: tabular-nums;
+    }
+    .countdown-label {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: rgba(245,236,215,0.65);
+      margin-top: 6px;
+      display: block;
+    }
+    .countdown-done {
+      text-align: center;
+      padding: 8px 0;
+    }
+    .countdown-done-text {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--gold-light);
+    }
   </style>
 </head>
 
@@ -2096,6 +2197,37 @@
       <span>KEŞFET</span>
       <span class="hero-scroll-line"></span>
     </a>
+  </section>
+
+  <!-- ── GERİ SAYIM ── -->
+  <section class="countdown-section reveal">
+    <div class="countdown-card">
+      <div class="countdown-header">
+        <div class="countdown-icon">🌙</div>
+        <div>
+          <div class="countdown-title">Kurban Bayramı'na Kalan Süre</div>
+          <div class="countdown-subtitle">17 Haziran 2026 · 1. Gün</div>
+        </div>
+      </div>
+      <div class="countdown-grid" id="countdownGrid">
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cdDays">--</span>
+          <span class="countdown-label">Gün</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cdHours">--</span>
+          <span class="countdown-label">Saat</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cdMins">--</span>
+          <span class="countdown-label">Dakika</span>
+        </div>
+        <div class="countdown-unit">
+          <span class="countdown-num" id="cdSecs">--</span>
+          <span class="countdown-label">Saniye</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ── GALERİ ── -->
@@ -3259,6 +3391,37 @@
       window.addEventListener('mousemove', move);
       window.addEventListener('mouseup', up);
     });
+
+    // ── KURBAN BAYRAMI GERİ SAYIM ──
+    (function() {
+      const target = new Date('2026-06-17T00:00:00+03:00').getTime();
+      const cdDays = document.getElementById('cdDays');
+      const cdHours = document.getElementById('cdHours');
+      const cdMins = document.getElementById('cdMins');
+      const cdSecs = document.getElementById('cdSecs');
+      const grid = document.getElementById('countdownGrid');
+
+      function pad(n) { return n < 10 ? '0' + n : n; }
+
+      function tick() {
+        const now = Date.now();
+        const diff = target - now;
+        if (diff <= 0) {
+          grid.innerHTML = '<div class="countdown-done" style="grid-column:1/-1"><span class="countdown-done-text">🌙 Kurban Bayramınız Mübarek Olsun! 🌙</span></div>';
+          return;
+        }
+        const d = Math.floor(diff / 86400000);
+        const h = Math.floor((diff % 86400000) / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        cdDays.textContent = d;
+        cdHours.textContent = pad(h);
+        cdMins.textContent = pad(m);
+        cdSecs.textContent = pad(s);
+        requestAnimationFrame(() => setTimeout(tick, 1000 - (Date.now() % 1000)));
+      }
+      tick();
+    })();
   </script>
 </body>
 
