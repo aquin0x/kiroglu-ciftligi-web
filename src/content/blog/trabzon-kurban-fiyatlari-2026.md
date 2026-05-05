@@ -16,10 +16,10 @@ tags: ["Trabzon Kurban", "Kurban Fiyatları 2026", "Karadeniz", "Hisse Fiyatı"]
 
 | Hayvan Tipi              | Hisse Başı Fiyat   | Tam Hayvan         |
 |--------------------------|--------------------|--------------------|
-| Yerli Irk Dana (450-500 kg) | ₺25.000 - ₺28.000 | ₺175.000 - ₺196.000 |
-| Simental Melezi (500-550 kg) | ₺27.000 - ₺30.000 | ₺189.000 - ₺210.000 |
-| Saf Simental (550-650 kg) | ₺29.000 - ₺33.000 | ₺203.000 - ₺231.000 |
-| Premium Etçi (650+ kg)   | ₺32.000 - ₺38.000  | ₺224.000 - ₺266.000 |
+| Yerli Irk Dana (450-550 kg) | ₺28.000 - ₺35.000 | ₺196.000 - ₺245.000 |
+| Simental Melezi (480-530 kg) | ₺30.000 - ₺35.000 | ₺210.000 - ₺245.000 |
+| Saf Simental (550-650 kg) | ₺36.000 - ₺42.000 | ₺252.000 - ₺294.000 |
+| Premium Etçi (650+ kg)   | ₺40.000 - ₺48.000  | ₺280.000 - ₺336.000 |
 
 ### Küçükbaş Kurban
 
@@ -72,11 +72,11 @@ Bazı çiftlikler kesim, parçalama ve eve teslim hizmetlerini fiyata dahil eder
 
 | Şehir          | Ortalama Hisse |
 |----------------|----------------|
-| İstanbul       | ₺32.000 - ₺40.000 |
-| Ankara         | ₺28.000 - ₺35.000 |
-| İzmir          | ₺30.000 - ₺38.000 |
-| **Trabzon**    | **₺27.000 - ₺32.000** |
-| Erzurum        | ₺26.000 - ₺30.000 |
+| İstanbul       | ₺35.000 - ₺45.000 |
+| Ankara         | ₺30.000 - ₺38.000 |
+| İzmir          | ₺33.000 - ₺42.000 |
+| **Trabzon**    | **₺28.000 - ₺38.000** |
+| Erzurum        | ₺27.000 - ₺34.000 |
 
 Trabzon büyük şehirlere göre belirgin şekilde **uygun fiyat** sunar. Üstelik bölgenin doğal yetiştirme koşulları nedeniyle **et kalitesi metropollerden daha iyidir**.
 
@@ -92,7 +92,7 @@ Trabzon büyük şehirlere göre belirgin şekilde **uygun fiyat** sunar. Üstel
 
 Bu yıl 9 büyükbaş hayvanımızla hizmet veriyoruz:
 
-- **Hisse başı fiyat aralığı**: ₺26.000 - ₺31.000
+- **Hisse başı fiyat aralığı**: ₺23.000 - ₺41.000
 - **Tüm hayvanlar 2 yaşını doldurmuş**
 - **Veteriner kontrolü** ve sağlık raporu
 - **Doğal mera otu** ile beslenme

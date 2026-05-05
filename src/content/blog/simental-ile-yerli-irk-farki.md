@@ -70,9 +70,9 @@ Bu konu **damak zevkine** göre değişir:
 
 2026 sezonunda hisse başı fiyatlar:
 
-- **Simental**: ₺28.000 - ₺31.500 (ağırlık avantajı yüksek)
-- **Yerli Irk**: ₺26.000 - ₺29.000
-- **Simental Melezi**: ₺26.500 - ₺30.000 (ortada)
+- **Simental**: ₺35.000 - ₺42.000 (ağırlık avantajı yüksek)
+- **Yerli Irk**: ₺27.000 - ₺35.000
+- **Simental Melezi**: ₺28.000 - ₺34.000 (ortada)
 
 Yerli ırklar daha küçük olduğundan toplam fiyat düşüktür ama hisse başı et de daha az çıkar. **Kg başına fiyat genelde benzerdir.**
 

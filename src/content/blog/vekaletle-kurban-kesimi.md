@@ -67,10 +67,10 @@ Vekalette üç seçenek vardır:
 
 | Tip                 | Fiyat              |
 |---------------------|--------------------|
-| Diyanet Vakfı (yurt içi) | ₺27.500 - ₺32.000 |
+| Diyanet Vakfı (yurt içi) | ₺30.000 - ₺36.000 |
 | Diyanet Vakfı (yurt dışı) | ₺18.000 - ₺22.000 |
-| Çiftlik vekalet (yurt içi) | ₺26.000 - ₺33.000 |
-| Premium etçi ırk | ₺32.000+ |
+| Çiftlik vekalet (yurt içi) | ₺23.000 - ₺41.000 |
+| Premium etçi ırk | ₺38.000+ |
 
 > Yurt dışı vekalet fiyatları ucuzdur çünkü daha az gelişmiş ülkelerde et alım gücü düşüktür ve hayvan fiyatları çok daha uygundur.
 
